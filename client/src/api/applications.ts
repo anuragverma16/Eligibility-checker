@@ -10,10 +10,13 @@ export type ApplicationPayload = {
 
 const NETWORK_ERROR = 'We could not reach the server. Check your connection and try again.';
 
+// Empty in local dev (the Vite proxy forwards /api); set to the Render URL in production.
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '');
+
 export async function saveApplication(payload: ApplicationPayload) {
   let response: Response;
   try {
-    response = await fetch('/api/applications', {
+    response = await fetch(`${API_BASE_URL}/api/applications`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -40,7 +43,7 @@ export type StoredApplication = {
 export async function fetchApplication(referenceId: string) {
   let response: Response;
   try {
-    response = await fetch(`/api/applications/${encodeURIComponent(referenceId)}`);
+    response = await fetch(`${API_BASE_URL}/api/applications/${encodeURIComponent(referenceId)}`);
   } catch {
     throw new Error(NETWORK_ERROR);
   }

@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: grantwise-api
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB
+        value: grantwise
+      - key: CORS_ORIGIN
+        sync: false

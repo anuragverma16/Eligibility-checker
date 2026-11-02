@@ -9,6 +9,7 @@ const { client, db } = await connectDatabase(config);
 const app = createApp({
   applicationsRepo: createApplicationsRepository(db),
   ping: () => db.command({ ping: 1 }),
+  corsOrigins: config.corsOrigins,
 });
 
 const server = app.listen(config.port, () => {
