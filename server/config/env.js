@@ -4,7 +4,7 @@ const DEFAULT_DB_NAME = 'grantwise';
 export function loadConfig(env = process.env) {
   const mongoUri = env.MONGODB_URI?.trim();
   if (!mongoUri) {
-    throw new Error('MONGODB_URI is not set. Copy .env.example to .env and add your connection string.');
+    throw new Error('MONGODB_URI is not set. Add it to server/.env locally, or to the service environment on Render.');
   }
 
   const port = Number(env.PORT) || DEFAULT_PORT;
